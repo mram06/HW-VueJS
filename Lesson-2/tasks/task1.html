@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ДЗ №2 Задача 1</title>
+</head>
+<body>
+    <h2>Задача 1</h2>
+    <p>Знайти суму, добуток та частку двох дійсних чисел. Результат вивести у формі таблиці</p>
+    <script>
+        // 1. Вводимо дані
+        let a = parseFloat(prompt('Введіть перше число', '0'))
+        let b = parseFloat(prompt('Введіть друге число', '0'))
+
+        // 2. Знаходимо результат
+        let sum = (a + b).toFixed(2)
+        let multiplication = (a * b).toFixed(2)
+        let division = (a / b).toFixed(2)
+        
+        // 3. Виводимо результат
+        document.write(`
+        <table>
+        <tr>
+            <th>Операція</th>
+            <th>Результат</th>
+        </tr>
+        <tr>
+            <td>Сума</td>
+            <td>${sum}</td>
+        </tr>
+        <tr>
+            <td>Добуток</td>
+            <td>${multiplication}</td>
+        </tr>  
+        <tr>
+            <td>Частка</td>
+            <td>${division}</td>
+        </tr>  
+    </table>
+        `)
+    </script>
+</body>
+</html>

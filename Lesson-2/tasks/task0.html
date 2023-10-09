@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ДЗ №2 Задача 0</title>
+</head>
+<body>
+    <h2>Задача 0</h2>
+    <img src="../img/task1.png" alt=""><br><br><br>
+    <script>
+        // 1. Вводимо дані
+        let a = parseInt(prompt('Введіть значення а', '0')) 
+        let b = parseInt(prompt('Введіть значення b', '0'))
+        let c = parseFloat(prompt('Введіть значення c', '0'))
+
+        // 2. Знаходимо результат
+        let s1 = (a + 12 + b).toFixed(2)
+        let s2 = Math.sqrt((a+b)/(2*a)).toFixed(2)
+        let s3 = Math.cbrt((a + b)*c).toFixed(2)
+        let s4 = Math.sin(a/(-b)).toFixed(2)
+
+
+        // 3. Виводимо результат
+        document.write(`
+        s1 = a + 12 + b = ${s1}<br><br>
+        s2 = √(a+b)/2a = ${s2}<br><br>
+        s3 = ∛(a+b)c = ${s3}<br><br>
+        s4 = sin(a/-b) = ${s4}`)
+    </script>
+</body>
+</html>

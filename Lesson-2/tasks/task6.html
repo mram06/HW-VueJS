@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ДЗ №2 Задача 6</title>
+</head>
+<body>
+    <h2>Задача 6</h2>
+    <p>З клавіатури вводяться вартість товару та кількість одиниць 3 товарів. Обчислити вартість кожного товару окремо та загальну вартість. Вивести чек (як у супермаркеті) використовуючи елементи розмітки.</p>
+    <script>
+        // 1. Вводимо дані
+        let item1 = 'Coca-Cola'
+        let item2 = 'Pepsi'
+        let item3 = 'Sprite'
+
+        let itemPrice1 = parseFloat(prompt(`Введіть ціну за ${item1}`, '0')).toFixed(2)
+        let itemCount1 = parseInt(prompt(`Введіть кількість ${item1}`, '0'))
+
+        let itemPrice2 = parseFloat(prompt(`Введіть ціну за ${item2}`, '0')).toFixed(2)
+        let itemCount2 = parseInt(prompt(`Введіть кількість ${item2}`, '0'))
+
+        let itemPrice3 = parseFloat(prompt(`Введіть ціну за ${item3}`, '0')).toFixed(2)
+        let itemCount3 = parseInt(prompt(`Введіть кількість ${item3}`, '0'))
+
+        // 2. Знаходимо результат
+        let itemSum1 = itemCount1 * itemPrice1
+        let itemSum2 = itemCount2 * itemPrice2
+        let itemSum3 = itemCount3 * itemPrice3
+
+        let sum = itemSum1 + itemSum2 + itemSum3
+
+        // 3. Виводимо на екран
+        document.write(`
+        --------------------------------------- <br>
+        ${item1} <br>
+        &nbsp&nbsp&nbsp&nbsp${itemCount1} x ${itemPrice1} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp ${itemSum1} <br><br>
+
+        ${item2} <br>
+        &nbsp&nbsp&nbsp&nbsp${itemCount2} x ${itemPrice2} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp ${itemSum1} <br><br>
+
+        ${item3} <br>
+        &nbsp&nbsp&nbsp&nbsp${itemCount3} x ${itemPrice3} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp ${itemSum1} <br>
+        --------------------------------------- <br>
+        СУМА &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp ${sum}
+        `)
+
+    </script>
+</body>
+</html>

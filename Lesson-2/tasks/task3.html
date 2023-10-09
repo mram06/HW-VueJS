@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ДЗ №2 Задача 3</title>
+</head>
+<body>
+    <h2>Задача 3</h2>
+    <p>Дано вартість одиниці товару і кількість. Знайти загальну вартість та ПДВ (5% від загальної вартості).</p>
+    <script>
+        // 1. Вводимо дані
+        let itemPrice = parseFloat(prompt(`Введіть вартість од. товару`, '0')).toFixed(2)
+        let itemCount = parseInt(prompt(`Введіть кількість товару`, '0'))
+
+        // 2. Знаходимо результат
+        let sum = (itemCount * itemPrice).toFixed(2)
+        let vat = (sum * 0.05).toFixed(2)
+        let clearSum = (sum - vat).toFixed(2)
+
+        // 3. Виводимо на екран
+        document.write(`
+        Кількість товару: ${itemCount} <br>
+        Ціна за одиницю: ${itemPrice} ₴ <br><br>
+        Загальна вартість: ${sum} ₴ <br><br>
+        З урахуванням податків: ${clearSum} ₴ <br>
+        ПДВ (5%): ${vat} ₴
+        `)
+    </script>
+</body>
+</html>
