@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ №1 Задача 2</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <h2>Задача 2</h2>
+    <p>
+      Вводиться номер місяця. Автоматично виводити рекомендований одяг (зима –
+      пальто, літо – шорти ….). Також автоматично виводити зображення з
+      відповідним зображенням лісу (зима – ліс зі снігом, осінь – жовтий ліс,
+      …).
+    </p>
+    <div id="app">
+      <div>
+        <label>
+          Номер місяця
+          <input type="number" v-model="monthNumber" />
+        </label>
+      </div>
+      <hr />
+      <div>
+        <label>
+          Рекомендований одяг -
+          <span>{{recommendClothes}}</span>
+        </label>
+      </div>
+      <div>
+        <img :src="showSeasonImg || imgSrc" alt="season photo" width="200" />
+      </div>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+      createApp({
+        data() {
+          return {
+            monthNumber: null,
+            season: null,
+            imgSrc: "../img/seasons.jpeg",
+          };
+        },
+        methods: {},
+        computed: {
+          recommendClothes() {
+            let res;
+            switch (this.monthNumber) {
+              case 12:
+              case 1:
+              case 2:
+                (res = "Куртка"), (this.season = "winter");
+                break;
+              case 3:
+              case 4:
+              case 5:
+                (res = "Пальто"), (this.season = "spring");
+                break;
+              case 6:
+              case 7:
+              case 8:
+                (res = "Шорти"), (this.season = "summer");
+                break;
+              case 9:
+              case 10:
+              case 11:
+                (res = "Кофта"), (this.season = "autumn");
+                break;
+            }
+            return res;
+          },
+          showSeasonImg() {
+            switch (this.season) {
+              case "winter":
+                this.imgSrc = "../img/winter.jpeg";
+                break;
+              case "spring":
+                this.imgSrc = "../img/spring.jpeg";
+                break;
+              case "summer":
+                this.imgSrc = "../img/summer.jpeg";
+                break;
+              case "autumn":
+                this.imgSrc = "../img/autumn.jpeg";
+                break;
+            }
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
