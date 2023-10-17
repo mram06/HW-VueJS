@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ №2 Задача 1</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .blue {
+        color: blue;
+      }
+      .red {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Задача 1</h2>
+    <p>
+      Вводимо логіна і пароль. Якщо логін вірний відображаємо смайл. Якщо ні,
+      то:
+    </p>
+
+    <ol>
+      <li>якщо логін = Іван – колір повідомлення про помилку синій</li>
+      <li>якщо хтось інший, то колір повідомлення червоний</li>
+    </ol>
+    <div id="app">
+      <div>
+        <p>username</p>
+        <input type="text" v-model="username" />
+      </div>
+      <div>
+        <p>password</p>
+        <input type="password" v-model="password" />
+      </div>
+      <button @click="checkLogin">Sign in</button><br />
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/SNice.svg/800px-SNice.svg.png"
+        alt=""
+        width="200"
+        v-if="validity"
+      />
+      <p :class="color" v-if="!errorMessage">Невірний логін або пароль</p>
+    </div>
+
+    <script>
+      const usersData = [
+        {
+          username: "admin",
+          password: "admin",
+        },
+        {
+          username: "ivan",
+          password: "ivan",
+        },
+      ];
+
+      const { createApp } = Vue;
+      createApp({
+        data() {
+          return {
+            username: null,
+            password: null,
+            validity: null,
+            color: null,
+          };
+        },
+        methods: {
+          checkLogin() {
+            for (const user of usersData) {
+              if (
+                user.username === this.username &&
+                user.password === this.password
+              ) {
+                this.validity = true;
+                return true;
+              }
+            }
+            this.validity = false;
+          },
+        },
+        computed: {
+          errorMessage() {
+            if (this.validity === false) {
+              if(this.username == "ivan")
+                this.color = "blue";
+              else this.color = "red";
+              return false;
+            }
+            return true;
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ №1 Задача 5</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <h2>Задача 5</h2>
+    <p></p>
+    <div id="app">
+      <div>Login: <input type="text" v-model="username" /></div>
+      <div>Password: <input type="password" v-model="password" /></div>
+      <button @click="login">Go</button>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+      createApp({
+        data() {
+          return {
+            username: null,
+            password: null,
+            users: [
+              {
+                username: "Dads1",
+                password: "123456",
+              },
+              {
+                username: "admin",
+                password: "admin",
+              },
+            ],
+          };
+        },
+        methods: {
+          login() {
+            let validity;
+            for (const user of this.users) {
+              if (
+                user.username == this.username &&
+                user.password == this.password
+              ) {
+                validity = true;
+                break;
+              }
+            }
+            console.log(validity);
+            if (validity) alert("Logged in succesfully");
+            else alert("Invalid login or password");
+          },
+        },
+        computed: {},
+      }).mount("#app");
+    </script>
+  </body>
+</html>
