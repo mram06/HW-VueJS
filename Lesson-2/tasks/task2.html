@@ -3,33 +3,72 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ДЗ №1 Задача 2</title>
+    <title>ДЗ №2 Задача 2</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .business {
+        background: url("https://i.pointhacks.com/2018/11/26211239/Singapore-Airlines-A380-New-Business-Class_3943-1024x683.jpg")
+          no-repeat;
+        height: 1000px;
+      }
+      .economy {
+        background: url("https://media.istockphoto.com/id/902818356/photo/sunset-sky-on-airplane-window-over-copenhagen-denmark-in-friday.jpg?s=612x612&w=0&k=20&c=lmUoxCl8_lyfNuRMoPwSpg6CE36xjd2nMHCiaKpuL0c=") no-repeat;
+        height: 1000px;
+      }
+    </style>
   </head>
   <body>
     <h2>Задача 2</h2>
-    <p>
-      Вводиться номер місяця. Автоматично виводити рекомендований одяг (зима –
-      пальто, літо – шорти ….). Також автоматично виводити зображення з
-      відповідним зображенням лісу (зима – ліс зі снігом, осінь – жовтий ліс,
-      …).
-    </p>
+    <p>З випадаючого списку вибираємо клас квитка у літаку. Якщо:</p>
+    <ol>
+      <li>
+        бізнес - виводимо елементи для вибору газети та коньяку (якщо вибрано
+        коньяк, то запропонувати закуску (так/ні)), на фоні зображення бізнес
+        кают
+      </li>
+      <li>
+        економ – виводимо елементи для вибору типу пива і чипсів, на фоні
+        хмарки.
+      </li>
+    </ol>
     <div id="app">
-      <div>
-        <label>
-          Номер місяця
-          <input type="number" v-model="monthNumber" />
-        </label>
-      </div>
-      <hr />
-      <div>
-        <label>
-          Рекомендований одяг -
-          <span>{{recommendClothes}}</span>
-        </label>
-      </div>
-      <div>
-        <img :src="showSeasonImg || imgSrc" alt="season photo" width="200" />
+      <div :class="showBackground">
+        <p>Оберіть клас квитка</p>
+        <select v-model="chosenClass" @change="showAdditionalService">
+          <option value="business">Бізнес</option>
+          <option value="economy">Економ</option></select
+        ><br />
+
+        <div v-if="chosenClass == 'business'">
+          <input type="checkbox" value="newspaper" v-model="newspaper" /><label
+            >Газета</label
+          ><br />
+          <input type="checkbox" value="alcohol" v-model="alcohol" /><label
+            >Коньяк</label
+          ><br />
+          <div v-if="alcohol">
+            <p>Бажаєте закуску?</p>
+            <select>
+              <option value="yes">Так</option>
+              <option value="no">Ні</option>
+            </select>
+          </div>
+        </div>
+        <br />
+
+        <div v-if="chosenClass == 'economy'">
+          <p>Тип пива</p>
+          <select v-model="beerType">
+            <option value="bright">Світле</option>
+            <option value="dark">Темне</option></select
+          ><br />
+          <p>Чіпси</p>
+          <select v-model="chipsBrand">
+            <option value="lays">Lays</option>
+            <option value="luxe">Люкс</option>
+            <option value="walkers">Walkers</option>
+          </select>
+        </div>
       </div>
     </div>
 
@@ -38,54 +77,17 @@
       createApp({
         data() {
           return {
-            monthNumber: null,
-            season: null,
-            imgSrc: "../img/seasons.jpeg",
+            chosenClass: null,
+            beerType: null,
+            chipsBrand: null,
+            alcohol: null,
           };
         },
         methods: {},
         computed: {
-          recommendClothes() {
-            let res;
-            switch (this.monthNumber) {
-              case 12:
-              case 1:
-              case 2:
-                (res = "Куртка"), (this.season = "winter");
-                break;
-              case 3:
-              case 4:
-              case 5:
-                (res = "Пальто"), (this.season = "spring");
-                break;
-              case 6:
-              case 7:
-              case 8:
-                (res = "Шорти"), (this.season = "summer");
-                break;
-              case 9:
-              case 10:
-              case 11:
-                (res = "Кофта"), (this.season = "autumn");
-                break;
-            }
-            return res;
-          },
-          showSeasonImg() {
-            switch (this.season) {
-              case "winter":
-                this.imgSrc = "../img/winter.jpeg";
-                break;
-              case "spring":
-                this.imgSrc = "../img/spring.jpeg";
-                break;
-              case "summer":
-                this.imgSrc = "../img/summer.jpeg";
-                break;
-              case "autumn":
-                this.imgSrc = "../img/autumn.jpeg";
-                break;
-            }
+          showBackground() {
+            if (this.chosenClass == "business") return "business";
+            else if (this.chosenClass == "economy") return "economy";
           },
         },
       }).mount("#app");

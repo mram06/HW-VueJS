@@ -3,16 +3,78 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ДЗ №1 Задача 5</title>
+    <title>ДЗ №2 Задача 5</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      a:visited {
+        color: #c48bf7;
+      }
+      body {
+        background-color: #202124;
+        color: #bdc1c6;
+        font-family: Arial, Helvetica, sans-serif;
+        padding: 0 20px;
+      }
+      .item {
+        margin: 0 0 40px 0;
+        max-width: 650px;
+      }
+
+      .item__head {
+        display: flex;
+        gap: 10px;
+        margin: 0 0 10px 0;
+      }
+
+      .item__head-logo img {
+        width: 30px;
+        border-radius: 50%;
+      }
+
+      .item__head-title p:first-child {
+        font-size: 14px;
+        margin: 0;
+      }
+      .item__head-title p:last-child {
+        font-size: 12px;
+        margin: 0;
+      }
+
+      .item__head-link {
+      }
+
+      .item__link {
+        font-size: 20px;
+      }
+
+      .item__description {
+        font-size: 14px;
+      }
+    </style>
   </head>
   <body>
     <h2>Задача 5</h2>
-    <p></p>
+    <p>
+      Самостійно сформуйте масив даних та виведіть фрагмент на зразок поданого
+      (дані не обов’язково повинні співпадати)
+    </p>
+    <hr />
     <div id="app">
-      <div>Login: <input type="text" v-model="username" /></div>
-      <div>Password: <input type="password" v-model="password" /></div>
-      <button @click="login">Go</button>
+      <div class="item" v-for="site in sitesData" :key="site">
+        <div class="item__head">
+          <div class="item__head-logo">
+            <img :src="site.imgSrc" />
+          </div>
+          <div class="item__head-title">
+            <p>{{site.shortName}}</p>
+            <p class="item__head-link">{{site.link}}</p>
+          </div>
+        </div>
+        <div>
+          <a :href="site.link" class="item__link">{{site.fullName}}</a>
+          <p class="item__description">{{site.description}}</p>
+        </div>
+      </div>
     </div>
 
     <script>
@@ -20,37 +82,48 @@
       createApp({
         data() {
           return {
-            username: null,
-            password: null,
-            users: [
+            sitesData: [
               {
-                username: "Dads1",
-                password: "123456",
+                imgSrc:
+                  "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/1200px-Vue.js_Logo_2.svg.png",
+                shortName: "Vue.js",
+                fullName:
+                  "Vue.js - The Progressive JavaScript Framework | Vue.js",
+                link: "https://vuejs.org/",
+                description:
+                  "Approachable. Builds on top of standard HTML, CSS and JavaScript with intuitive API and world-class documentation. · Performant. Truly reactive, compiler- ...",
               },
               {
-                username: "admin",
-                password: "admin",
+                imgSrc:
+                  "https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/1200px-Wikipedia-logo-v2.svg.png",
+                shortName: "Wikipedia",
+                fullName: "Vue.js",
+                link: "https://en.wikipedia.org/wiki/Vue.js",
+                description:
+                  "Vue.js is an open-source model–view–viewmodel front end JavaScript library for building user interfaces and single-page applications.",
+              },
+              {
+                imgSrc:
+                  "https://play-lh.googleusercontent.com/PCpXdqvUWfCW1mXhH1Y_98yBpgsWxuTSTofy3NGMo9yBTATDyzVkqU580bfSln50bFU",
+                shortName: "GitHub",
+                fullName: "This repo is for Vue 2",
+                link: "https://github.com/vuejs/vue",
+                description:
+                  "Vue (pronounced /vjuː/ , like view) is a progressive framework for building user interfaces. It is designed from the ground up to be incrementally adoptable, ...",
+              },
+              {
+                imgSrc:
+                  "https://play-lh.googleusercontent.com/r44HT1y-MS8j235dZWoTYOz9uovuTWC7zXFEI7BlpUWvgetD8oP8IpGpW-HKQUd2HF8=w240-h480-rw",
+                shortName: "Silpo",
+                fullName: "«Сільпо» — спробуйте онлайн - Доставка до дверей",
+                link: "https://shop.silpo.ua/",
+                description:
+                  "Зібрали найкращі цінові пропозиції. Ваш гаманець скаже «дякую»! Ще й економія на доставці. Краще співвідношення ціни та якості. Улюблений асортимент та зручна доставка. Доставка або самовивіз. Оплата: онлайн. Вигідні умови доставки",
               },
             ],
           };
         },
-        methods: {
-          login() {
-            let validity;
-            for (const user of this.users) {
-              if (
-                user.username == this.username &&
-                user.password == this.password
-              ) {
-                validity = true;
-                break;
-              }
-            }
-            console.log(validity);
-            if (validity) alert("Logged in succesfully");
-            else alert("Invalid login or password");
-          },
-        },
+        methods: {},
         computed: {},
       }).mount("#app");
     </script>

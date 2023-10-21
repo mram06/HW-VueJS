@@ -3,51 +3,153 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ДЗ №1 Задача 3</title>
+    <title>ДЗ №2 Задача 3</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .item {
+        width: 200px;
+        border: 3px solid black;
+        overflow: hidden;
+        padding: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+      }
+      .item__img img {
+        width: 150px;
+      }
+      .item__title {
+        font-weight: bold;
+      }
+      .item__buttons {
+        display: flex;
+        gap: 5px;
+      }
+      .item__buttons button {
+        background-color: rgb(14, 125, 205);
+        color: white;
+        cursor: pointer;
+      }
+      .item__buttons button:last-child {
+        background-color: rgb(0, 160, 67);
+      }
+      .red {
+        border: 3px solid red;
+      }
+      .green {
+        border: 3px solid green;
+      }
+      .correct {
+        color: green;
+      }
+      .incorrect {
+        color: red;
+      }
+    </style>
   </head>
   <body>
     <h2>Задача 3</h2>
     <p>
-      Задано початок та кінець діапазону. При натисканні на кнопку випадковим
-      чином генерувати значення з вказаного діапазону та відображати його.
+      Елемент тренажера англійської. Виводимо зображення елемента і слово.
+      Користувач вводить відповідь. Якщо вірно – відтворюємо фразу «Добре.
+      Молодець!» (і додаємо зелену рамку до елемента), якщо ні - то відтворюємо
+      фразу «Невірно, спробуйте ще раз» (і додаємо червону рамку).
     </p>
     <div id="app">
-      <div>
-        <label>
-          Початок
-          <input type="number" v-model="rangeStart" />
-        </label>
+      <div :class="['item', statusColor]">
+        <div class="item__img">
+          <img :src="currentWordImg" />
+        </div>
+        <div class="item__title">{{currentWordEng}}</div>
+        <p>Ваш переклад:</p>
+        <input type="text" v-model="userAnswer" />
+        <div class="item__buttons">
+          <button @click="checkWord">Перевірити</button>
+          <button @click="getRandomWord">Наступна картка</button>
+        </div>
       </div>
-      <div>
-        <label>
-          Кінець
-          <input type="number" v-model="rangeEnd" />
-        </label>
-      </div>
-      <button @click="getRandomOfRange">Розрахувати</button>
-      <hr />
-      <div>Результат: {{rangeResult}}</div>
+      <h2 :class="messageColor">{{message}}</h2>
     </div>
 
     <script>
+      const words = [
+        {
+          imgSrc:
+            "https://www.ikea.com/in/en/images/products/nodeland-coffee-table-medium-brown__0974637_pe812499_s5.jpg",
+          nameEnglish: "table",
+          nameUkrainian: "стіл",
+        },
+        {
+          imgSrc:
+            "https://m.media-amazon.com/images/I/71d5fMDvq9L._AC_UF1000,1000_QL80_.jpg",
+          nameEnglish: "television",
+          nameUkrainian: "телевізор",
+        },
+        {
+          imgSrc:
+            "https://i.pcmag.com/imagery/roundups/07ml3nh3QrzTLZ9UycfQQB2-49..v1668971764.jpg",
+          nameEnglish: "phone",
+          nameUkrainian: "телефон",
+        },
+        {
+          imgSrc:
+            "https://wjmtech.co.uk/cdn/shop/files/gmxcsdiamondwht-16_1200x1200.png?v=1685542988",
+          nameEnglish: "pc",
+          nameUkrainian: "пк",
+        },
+        {
+          imgSrc:
+            "https://lovehomedesigns.com/wp-content/uploads/2022/12/Spectacular-Prairie-Home-Plan-with-Lower-Level-Rec-Room-325005226-1.jpg",
+          nameEnglish: "house",
+          nameUkrainian: "будинок",
+        },
+      ];
+
       const { createApp } = Vue;
       createApp({
         data() {
           return {
-            rangeStart: null,
-            rangeEnd: null,
-            rangeResult: null,
+            currentWordImg: null,
+            currentWordEng: null,
+            currentWordUkr: null,
+            userAnswer: null,
+            isCorrect: null,
+            message: null,
           };
         },
         methods: {
-          getRandomOfRange() {
-            this.rangeResult =
-              this.rangeStart +
-              Math.floor(Math.random() * (this.rangeEnd - this.rangeStart + 1));
+          getRandomWord() {
+            this.isCorrect = null;
+            this.userAnswer = null;
+            this.message = null;
+            let wordInd = Math.floor(Math.random() * (words.length + 1));
+            let currentWordObj = words[wordInd];
+            this.currentWordImg = currentWordObj.imgSrc;
+            this.currentWordEng = currentWordObj.nameEnglish;
+            this.currentWordUkr = currentWordObj.nameUkrainian;
+          },
+          checkWord() {
+            if (this.userAnswer.toLowerCase() == this.currentWordUkr)
+              this.isCorrect = true;
+            else this.isCorrect = false;
           },
         },
-        computed: {},
+        computed: {
+          statusColor() {
+            if (this.isCorrect === true) return "green";
+            else if (this.isCorrect === false) return "red";
+          },
+          messageColor() {
+            if (this.isCorrect === true) {
+              this.message = "Добре! Молодець!";
+              return "correct";
+            } else if (this.isCorrect === false) {
+              this.message = "Невірно, спробуйте ще раз";
+              return "incorrect";
+            }
+          },
+        },
       }).mount("#app");
     </script>
   </body>

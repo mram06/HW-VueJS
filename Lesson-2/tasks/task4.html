@@ -3,36 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ДЗ №1 Задача 4</title>
+    <title>ДЗ №2 Задача 4</title>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <style>
-        .red{color: red;}
-        .green{color: green;}
+      .red {
+        color: red;
+      }
+      .green {
+        color: green;
+      }
     </style>
   </head>
   <body>
     <h2>Задача 4</h2>
     <p>
-        “Рахунок у банку”
-        Вимоги:
-        <ol>
-            <li>Спочатку сума дорівнює 0грн. Змінити суму у гривнях можна або зарахуванням на рахунок, або зняттям.</li>
-            <li>Сума автоматично переводиться у долари та євро (фіксований курс задається у data).</li>
-            <li>можливість зарахувати суму (контролювати, щоб не була від’ємною)</li>
-            <li>можливість зняти (щоб не можна зняти більше ніж є на рахунку)</li>
-            <li>при виконанні зняття і зарахування коштів вираховувати 3% від суми (відображати кількість відсотків автоматично)</li>
-        </ol>    
+      Вивести список як маркований список з елементами у форматі (name: salary)
     </p>
     <div id="app">
-      <div>Сума на рахунку: {{accountStatus}} грн</div>
-      <div>В євро: € {{getEurSum}}</div>
-      <div>В доларах: $ {{getUsdSum}}</div>
-      <hr>
-      <label>Поле вводу</label><br>
-      <input type="number" v-model="operationValue"><br>
-      <p>Комісія 3% - {{feeSum}}</p>
-      <button @click="topUp">Поповнити</button>
-      <button @click="withdraw">Зняти</button>
+      <ul>
+        <li v-for="worker in workersList2" :key="worker">{{worker.name}} : {{worker.salary}}</li>
+      </ul>
     </div>
 
     <script>
@@ -40,40 +30,27 @@
       createApp({
         data() {
           return {
-            eurCurrency: 39.97,
-            usdCurrency: 37.44,
-            accountStatus: 0,
-            operationValue: null,
-            fee: 0.03,
-            feeSum: null,
+            workersList2: [
+              {
+                id: "111",
+                name: "Іванов",
+                salary: 10000,
+              },
+              {
+                id: "112",
+                name: "Петров",
+                salary: 20000,
+              },
+              {
+                id: "113",
+                name: "Сидоров",
+                salary: 50000,
+              },
+            ],
           };
         },
-        methods: {
-            topUp(){
-                if(this.operationValue >= 0)
-                    this.accountStatus += this.operationValue
-                else alert('Сума зарахування не може бути від\'ємною ')
-
-                this.feeSum = this.operationValue * this.fee
-                this.accountStatus -= this.feeSum
-            },
-            withdraw(){
-                if(this.operationValue <= this.accountStatus)
-                    this.accountStatus -= this.operationValue
-                else alert('Сума зняття перевищує баланс на рахунку')
-
-                this.feeSum = this.operationValue * this.fee
-                this.accountStatus -= this.feeSum
-            }
-        },
-        computed: {
-            getEurSum(){
-                return (this.accountStatus / this.eurCurrency).toFixed(2)
-            },
-            getUsdSum(){
-                return (this.accountStatus / this.usdCurrency).toFixed(2)
-            },
-        },
+        methods: {},
+        computed: {},
       }).mount("#app");
     </script>
   </body>

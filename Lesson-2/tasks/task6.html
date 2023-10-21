@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ №2 Задача 6</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .table {
+        display: flex;
+        max-width: 600px;
+        margin: 20px 0 0 0;
+
+        border: 1px solid black;
+      }
+      .table > div {
+        border: 1px solid black;
+        width: 100%;
+      }
+      .item__container > div {
+        border: 1px solid black;
+        width: 100%;
+      }
+      .order__container {
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Задача 6</h2>
+    <p>
+      На кухню поступають замовлення. Спочатку ми додаємо їх у список “Очікують
+      на виконання”, якщо повар береться робити — замовлення переходить у список
+      “Виконуються”, якщо замовлення виконано — переходить у список “Готові до
+      виносу”. Якщо натиснути на “Подано” - страва зникає з таблиці
+    </p>
+    <hr />
+    <div id="app">
+      <div>
+        <label>Нова замовлена страва: </label>
+        <input type="text" v-model="orderName" />
+        <button @click="addOrder">Додати</button>
+      </div>
+      <div class="table">
+        <div class="item__container">
+          <h4>Очікують на виконання</h4>
+          <div v-for="(order, key) in waitList" :key="key" class="order__container">
+            <label>{{order.name}}</label>
+            <button @click="toProcess(key)">Готувати</button>
+          </div>
+        </div>
+
+        <div class="item__container">
+          <h4>Виконуються</h4>
+          <div v-for="(order, key) in inProcessList" :key="key" class="order__container">
+            <label>{{order.name}}</label>
+            <button @click="toReady(key)">Приготовлено</button>
+          </div>
+        </div>
+
+        <div class="item__container">
+          <h4>Готові до виносу</h4>
+          <div v-for="(order, key) in readyList" :key="key" class="order__container">
+            <label>{{order.name}}</label>
+            <button @click="toClear(key)">Подано</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+      createApp({
+        data() {
+          return {
+            orderName: null,
+            waitList: [],
+            inProcessList: [],
+            readyList: [],
+          };
+        },
+        methods: {
+          addOrder() {
+            if (this.orderName) {
+              let temp = this.orderName;
+              this.waitList.push({
+                id: new Date().getMilliseconds(),
+                name: temp,
+              });
+              this.orderName = null;
+            }
+          },
+          toProcess(ind){
+            this.inProcessList.push(this.waitList[ind])
+            this.waitList.splice(ind, 1)
+          },
+          toReady(ind){
+            this.readyList.push(this.inProcessList[ind])
+            this.inProcessList.splice(ind, 1)
+          },
+          toClear(ind){
+            this.readyList.splice(ind, 1)
+          }
+        },
+        computed: {},
+      }).mount("#app");
+    </script>
+  </body>
+</html>
