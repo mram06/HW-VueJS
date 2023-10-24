@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ №3 Задача 9</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .container {
+        display: flex;
+        gap: 20px;
+      }
+      .items {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100px;
+        padding: 5px;
+        border: 3px solid black;
+      }
+      .item {
+        padding: 3px;
+        border: 3px solid black;
+      }
+      .selected {
+        border: 3px solid blue;
+      }
+      .wrong {
+        border: 3px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Задача 9</h2>
+    <p>
+      Перекладач. Користувачу виводять змішані картки з словами на англійській і
+      українській мові. Користувач поступово клікає на картки (виділяємо синьою
+      рамкою). Якщо знайдено правильні пари карток, що відповідають одному
+      слову, то видаляємо ці картки. Інакше - виділяємо червоною рамкою і через
+      секунду забираємо рамку.
+    </p>
+    <div id="app">
+      <h3>Знайдіть пари слів</h3>
+      <div class="container">
+        <div class="items">
+          <div
+            :class="['item', {selected: setBlueBorder(word.en),
+            wrong: checkWord() && word.id == enWordIndex
+            }]"
+            v-for="(word, ind) in words"
+            :key="ind"
+            @click="selectWordEn(word.en, ind)"
+          >
+            {{word.en}}
+          </div>
+        </div>
+        <div class="items">
+          <div
+            :class="['item', {selected: setBlueBorder(word.ua),
+              wrong: checkWord() && word.id == uaWordIndex}]"
+            v-for="(word, ind) in words"
+            :key="ind"
+            @click="selectWordUa(word.ua, ind)"
+          >
+            {{word.ua}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+      createApp({
+        data() {
+          return {
+            words: [
+              { id: 0, en: "table", ua: "стіл" },
+              { id: 1, en: "car", ua: "автомобіль" },
+              { id: 2, en: "bus", ua: "автобус" },
+              { id: 3, en: "man", ua: "людина" },
+              { id: 4, en: "boy", ua: "хлопець" },
+            ],
+            enWord: null,
+            uaWord: null,
+            enWordIndex: null,
+            uaWordIndex: null,
+          };
+        },
+        methods: {
+          selectWordEn(word, ind) {
+            this.enWord = word;
+            this.enWordIndex = ind;
+          },
+          selectWordUa(word, ind) {
+            this.uaWord = word;
+            this.uaWordIndex = ind;
+          },
+          setBlueBorder(word) {
+            if (this.enWord == word) return true;
+          },
+          checkWord() {
+            if (this.enWordIndex !== this.uaWordIndex && this.uaWordIndex)
+              return true;
+            if (this.enWordIndex === this.uaWordIndex && this.uaWordIndex) {
+              this.words.splice(this.enWordIndex, 1);
+              this.enWord = null;
+              this.uaWord = null;
+              this.enWordIndex = null;
+              this.uaWordIndex = null;
+            }
+          },
+        },
+        computed: {},
+      }).mount("#app");
+    </script>
+  </body>
+</html>

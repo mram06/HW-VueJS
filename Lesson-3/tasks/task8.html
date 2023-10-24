@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ДЗ №3 Задача 8</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .filter {
+        display: flex;
+        gap: 30px;
+      }
+      .filter__item select {
+        width: 100px;
+        margin: 0 0 0 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Задача 8</h2>
+    <p>
+      Дано список автомобілів (марка, рік випуску, ціна). Сформувати елементи
+      для фільтрування з використанням випадаючого списку (контент цих
+      випадаючих списків сформувати у залежності від переданого списку).
+    </p>
+    <div id="app">
+      <div class="filter">
+        <div class="filter__item">
+          <label>Марка</label>
+          <select @change="searchVehicle" v-model="carMake">
+            <option value="">- Не вказано -</option>
+            <option :value="car.make" v-for="car in vehiclesData" :key="car">
+              {{car.make}}
+            </option>
+          </select>
+        </div>
+        <div class="filter__item">
+          <label>Рік випуску</label>
+          <select @change="searchVehicle" v-model="carYear">
+            <option value="">- Не вказано -</option>
+            <option :value="car.year" v-for="car in vehiclesData">
+              {{car.year}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <h4>Результати пошуку</h4>
+      <div v-for="(car, key) in searchedVehicles" :key="key">
+        {{key + 1}}. {{car.make}} {{car.model}} - {{car.year}} р. -
+        ${{car.price}}
+      </div>
+    </div>
+
+    <script>
+      const { createApp } = Vue;
+      createApp({
+        data() {
+          return {
+            vehiclesData: [
+              {
+                make: "Audi",
+                model: "A4",
+                year: 2011,
+                price: 11000,
+              },
+              {
+                make: "Toyota",
+                model: "Yaris Cross",
+                year: 2021,
+                price: 25000,
+              },
+              {
+                make: "Skoda",
+                model: "Octavia",
+                year: 2016,
+                price: 13000,
+              },
+              {
+                make: "Mazda",
+                model: "Miata",
+                year: 2003,
+                price: 23000,
+              },
+              {
+                make: "Volkswagen",
+                model: "Golf",
+                year: 2017,
+                price: 15000,
+              },
+              {
+                make: "Volkswagen",
+                model: "Passat",
+                year: 2014,
+                price: 8000,
+              },
+              {
+                make: "Ford",
+                model: "Fiesta",
+                year: 2019,
+                price: 12000,
+              },
+              {
+                make: "Honda",
+                model: "Civic",
+                year: 2020,
+                price: 14000,
+              },
+              {
+                make: "Chevrolet",
+                model: "Cruze",
+                year: 2018,
+                price: 11000,
+              },
+              {
+                make: "Nissan",
+                model: "Altima",
+                year: 2017,
+                price: 12000,
+              },
+              {
+                make: "Hyundai",
+                model: "Elantra",
+                year: 2019,
+                price: 13000,
+              },
+              {
+                make: "Subaru",
+                model: "Outback",
+                year: 2020,
+                price: 18000,
+              },
+              {
+                make: "Kia",
+                model: "Sportage",
+                year: 2018,
+                price: 15000,
+              },
+            ],
+            carMake: null,
+            carYear: null,
+            searchedVehicles: [],
+          };
+        },
+        computed: {
+          searchVehicle() {
+            this.searchedVehicles = [];
+            let res = [];
+            if (this.carMake) {
+              res = this.vehiclesData.filter((car) => car.make == this.carMake);
+            }
+            if (this.carYear) {
+              if (this.carMake) {
+                res = res.filter((car) => car.year == this.carYear);
+              } else {
+                res = this.vehiclesData.filter(
+                  (car) => car.year == this.carYear
+                );
+              }
+            }
+
+            for (let i = 0; i < res.length; i++) {
+              this.searchedVehicles.push(res[i]);
+            }
+          },
+        },
+        methods: {},
+      }).mount("#app");
+    </script>
+  </body>
+</html>
