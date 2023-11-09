@@ -1,18 +1,20 @@
 <template>
   <div class="items">
-    <div class="item" v-for="item in itemsList" :key="item.id">
+    <div class="item" v-for="item in getItemsList" :key="item.id">
       <div class="item__body">
         <div class="item__img">
           <img :src="item.imgSrc" />
         </div>
-        <div class="item__title">{{item.title}}</div>
-        <div class="item__price">{{item.price}}<span>₴</span></div>
+        <div class="item__title">{{ item.title }}</div>
+        <div class="item__price">{{ item.price }}<span>₴</span></div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "ProductsList",
 
@@ -22,14 +24,24 @@ export default {
       default: () => [],
     },
   },
+
+  data() {
+    return {
+      filteredList: [],
+    };
+  },
+
+  computed: {
+    ...mapGetters(["getItemsList"]),
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .items {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100%;
 }
 .item {
   &__body {
@@ -47,7 +59,7 @@ export default {
     width: 240px;
     height: 170px;
     & img {
-       max-width: 100%; 
+      max-width: 100%;
     }
   }
 
@@ -58,9 +70,9 @@ export default {
   &__price {
     margin: 20px 0 0 0;
     font-size: 24px;
-    color: #F84147;
+    color: #f84147;
     & span {
-        font-size: 16px;
+      font-size: 16px;
     }
   }
 }

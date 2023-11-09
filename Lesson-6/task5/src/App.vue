@@ -1,6 +1,4 @@
 <template>
-  
-
   <div class="container">
     <div class="wrapper">
       <products-filters :items-list="itemsData" />
