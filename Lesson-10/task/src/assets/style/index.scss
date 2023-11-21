@@ -4,13 +4,11 @@ body {
   font-size: 14px;
   padding: 200px 0 0 0;
 }
-
 .wrapper {
   display: flex;
   border-top: 0.5px solid rgb(210, 210, 210);
 }
-
-.container {
-  max-width: 1500px;
-  margin: 0 auto;
+.container{
+    max-width: 1500px;
+    margin: 0 auto;
 }
