@@ -13,11 +13,20 @@
     <div>{{ driver.name }}</div>
     <div>
       {{ driver.experience }}
-      <img @click="onEdit(driver.id)" src="../assets/edit.png" />
-      <img @click="onDelete(driver.id)" src="../assets/delete.png" />
+      <font-awesome-icon
+        @click="onEdit(driver.id)"
+        :icon="['fas', 'pen-to-square']"
+        class="pointer"
+      />
+      <font-awesome-icon
+        @click="onDelete(driver.id)"
+        :icon="['fas', 'trash']"
+        style="color: #ff0000"
+        class="pointer"
+      />
     </div>
   </div>
-  <router-link :to="{ name: 'driverConfig' }">Додати водія</router-link>
+  <v-btn @click="onAdd">Додати водія </v-btn>
 </template>
 
 <script>
@@ -46,6 +55,9 @@ export default {
     onDelete(driverId) {
       this.deleteItem(driverId);
     },
+    onAdd() {
+      this.$router.push({ name: "driverConfig" });
+    },
   },
   created() {
     this.loadList();
@@ -65,8 +77,8 @@ export default {
   margin-bottom: 7px;
   border-bottom: 1px solid grey;
 }
-img {
-  height: 25px;
+.pointer {
   cursor: pointer;
+  height: 25px;
 }
 </style>
