@@ -1,0 +1,23 @@
+{
+  "menu": {
+    "home": "Home page",
+    "laptops": "Laptops",
+    "cart": "Cart",
+    "total": "Загалом"
+  },
+  "actionTitles": {
+    "login": "Login",
+    "logout": "Logout",
+    "buy": "Buy now",
+    "search": "Search"
+  },
+  "aside": {
+    "seller": "Seller",
+    "brand": "Brand",
+    "otherSellers": "Other sellers"
+  },
+  "messages": {
+    "welcome": "Welcome",
+    "welcomeHome": "Welcome on online-store of laptops"
+  }
+}

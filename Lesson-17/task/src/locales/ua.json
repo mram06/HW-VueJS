@@ -1,0 +1,23 @@
+{
+  "menu": {
+    "home": "Головна",
+    "laptops": "Ноутбуки",
+    "cart": "Кошик",
+    "total": "Загалом"
+  },
+  "actionTitles": {
+    "login": "Увійти",
+    "logout": "Вийти",
+    "buy": "Купити",
+    "search": "Пошук"
+  },
+  "aside": {
+    "seller": "Продавець",
+    "brand": "Бренд",
+    "otherSellers": "Інші продавці"
+  },
+  "messages": {
+    "welcome": "Вітаємо",
+    "welcomeHome": "Вітаємо вас в інтернет-магазині ноутбуків"
+  }
+}
